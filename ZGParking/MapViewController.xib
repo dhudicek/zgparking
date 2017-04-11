@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F54b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapViewController" customModule="ZGParking" customModuleProvider="target">
             <connections>
                 <outlet property="carPicker" destination="BfI-5y-d7s" id="3WG-WZ-iAi"/>
+                <outlet property="licensePlateTextField" destination="i0I-fZ-mwu" id="GLj-71-1zp"/>
                 <outlet property="priceLabel" destination="774-26-mA9" id="XUO-sK-gtN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zoneLabel" destination="obz-AO-Iqd" id="JW2-PH-n0G"/>
@@ -53,15 +54,26 @@
                         <constraint firstAttribute="height" constant="44" id="azI-0s-5Ps"/>
                     </constraints>
                     <state key="normal" title="Plati"/>
+                    <connections>
+                        <action selector="payButtonTapped:" destination="-1" eventType="touchUpInside" id="N01-uA-K0J"/>
+                    </connections>
                 </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="center" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Registracija" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i0I-fZ-mwu">
+                    <rect key="frame" x="112" y="409" width="97" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="wWT-mn-ta8" secondAttribute="trailing" constant="100" id="8jW-kg-JgC"/>
+                <constraint firstItem="i0I-fZ-mwu" firstAttribute="centerX" secondItem="BfI-5y-d7s" secondAttribute="centerX" id="9vY-rf-HW3"/>
                 <constraint firstAttribute="trailing" secondItem="774-26-mA9" secondAttribute="trailing" constant="16" id="AAd-b3-ruT"/>
                 <constraint firstItem="BfI-5y-d7s" firstAttribute="top" secondItem="774-26-mA9" secondAttribute="bottom" constant="-4" id="DDC-0F-n4J"/>
                 <constraint firstItem="wWT-mn-ta8" firstAttribute="top" secondItem="BfI-5y-d7s" secondAttribute="bottom" constant="16" id="Fqu-sM-MKD"/>
                 <constraint firstItem="obz-AO-Iqd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="ThF-8u-NbL"/>
+                <constraint firstItem="i0I-fZ-mwu" firstAttribute="centerY" secondItem="BfI-5y-d7s" secondAttribute="centerY" id="adl-Jr-TKm"/>
                 <constraint firstItem="774-26-mA9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="bF7-z0-uc7"/>
                 <constraint firstAttribute="trailing" secondItem="BfI-5y-d7s" secondAttribute="trailing" constant="16" id="ceN-BF-mwJ"/>
                 <constraint firstAttribute="trailing" secondItem="obz-AO-Iqd" secondAttribute="trailing" constant="16" id="hHi-lo-dHf"/>

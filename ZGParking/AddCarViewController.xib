@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F43c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddCarViewController" customModule="ZGParking" customModuleProvider="target">
+            <connections>
+                <outlet property="licensePlateLabel" destination="F9J-KN-Dku" id="WQ6-Cz-lvY"/>
+                <outlet property="licensePlateTextField" destination="NTB-f7-RGe" id="XZW-RT-gwJ"/>
+                <outlet property="nameLabel" destination="jwQ-3r-fdm" id="tUK-w1-zFT"/>
+                <outlet property="nameTextField" destination="R5O-4j-dsm" id="c4O-wH-hTP"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwQ-3r-fdm">
+                    <rect key="frame" x="33" y="108" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F9J-KN-Dku">
+                    <rect key="frame" x="33" y="169" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R5O-4j-dsm">
+                    <rect key="frame" x="83" y="103" width="276" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NTB-f7-RGe">
+                    <rect key="frame" x="83" y="164" width="276" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="NTB-f7-RGe" firstAttribute="leading" secondItem="F9J-KN-Dku" secondAttribute="trailing" id="1Ja-It-fKn"/>
+                <constraint firstItem="R5O-4j-dsm" firstAttribute="centerY" secondItem="jwQ-3r-fdm" secondAttribute="centerY" id="37M-wK-AI4"/>
+                <constraint firstItem="R5O-4j-dsm" firstAttribute="leading" secondItem="jwQ-3r-fdm" secondAttribute="trailing" id="DDu-S6-ACk"/>
+                <constraint firstItem="jwQ-3r-fdm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="100" id="Hpk-eK-OX4"/>
+                <constraint firstItem="NTB-f7-RGe" firstAttribute="centerY" secondItem="F9J-KN-Dku" secondAttribute="centerY" id="UCm-TA-nsg"/>
+                <constraint firstItem="NTB-f7-RGe" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="ata-qZ-dwZ"/>
+                <constraint firstItem="jwQ-3r-fdm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="bft-GF-9NX"/>
+                <constraint firstItem="F9J-KN-Dku" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="nYb-sY-hKP"/>
+                <constraint firstItem="R5O-4j-dsm" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="wP5-H2-uLy"/>
+                <constraint firstItem="F9J-KN-Dku" firstAttribute="top" secondItem="jwQ-3r-fdm" secondAttribute="bottom" constant="40" id="yLp-hF-4vL"/>
+            </constraints>
+            <point key="canvasLocation" x="63.5" y="54.5"/>
+        </view>
+    </objects>
+</document>

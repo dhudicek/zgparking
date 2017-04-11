@@ -9,6 +9,7 @@
 import UIKit
 import GooglePlaces
 import GoogleMaps
+import MessageUI
 
 class MapViewController: UIViewController {
 
@@ -17,14 +18,28 @@ class MapViewController: UIViewController {
     var mapView: GMSMapView!
     var placesClient: GMSPlacesClient!
     var zoomLevel: Float = 15.0
+    var zone: ZoneEnum?
+    var car: Car?
     
+    @IBAction func payButtonTapped(_ sender: UIButton) {
+        var licensePlate: String
+        if (isManualPaymentEnabled()) {
+            licensePlate = licensePlateTextField.text!
+        }
+        else {
+            licensePlate = (car?.licensePlate)!
+        }
+        if let zone = self.zone, let telefon = zone.brojTelefona{
+            sendMessage(forLicensePlate: licensePlate, forZone: telefon)
+        }
+    }
+    @IBOutlet weak var licensePlateTextField: UITextField!
     @IBOutlet weak var zoneLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var carPicker: UIPickerView!
-    
     @IBOutlet weak var zoneLabelTopConstraint: NSLayoutConstraint!
     
-    var pickerData = ["Auto 1", "Auto 2", "Auto 3", "Auto 4", "Auto 5", "Auto 6"]
+    //var pickerData = ["Auto 1", "Auto 2", "Auto 3", "Auto 4", "Auto 5", "Auto 6"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +52,12 @@ class MapViewController: UIViewController {
         
         initLocationManager()
         initGoogleMapView()
+        initButtons()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        carPicker.reloadAllComponents()
     }
     
     private func initLocationManager() {
@@ -72,6 +93,17 @@ class MapViewController: UIViewController {
         
     }
     
+    private func initButtons() {
+        let settingsButton = UIBarButtonItem(title: "Postavke", style: .plain, target: self, action: #selector(settingsButtonTapped))
+        navigationItem.rightBarButtonItem = settingsButton
+    }
+    
+    @objc private func settingsButtonTapped(notification: NSNotification) {
+        let settingsViewController = SettingsViewController()
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(settingsViewController, animated: true)
+        }
+    }
     
 }
 
@@ -91,9 +123,15 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.animate(to: camera)
         }
         
-        let stringCoordinates = "(" + location.coordinate.latitude.description + "," + location.coordinate.longitude.description + ")"
         
-        zoneLabel.text = "Zona: " + stringCoordinates
+        //let stringCoordinates = "(" + location.coordinate.latitude.description + "," + location.coordinate.longitude.description + ")"
+        zone = ZoneDetectionService.detectZone(location: location)
+        guard let zoneText = zone?.rawValue,
+            let priceText = zone?.cijena,
+            let obracunskaJedinica = zone?.obracunskaJedinica
+        else {return}
+        zoneLabel.text = ("Zona: \(zoneText)")
+        priceLabel.text = ("Cijena: \(priceText)kn/\(obracunskaJedinica)")
     }
     
     // Handle authorization for the location manager.
@@ -128,12 +166,52 @@ extension MapViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
+        let count = PersistenceService.numberOfCars()
+        if count == 0 {
+            manualPayment(isEnabled: true)
+        }
+        else {
+            manualPayment(isEnabled: false)
+        }
+        return count
     }
     
     // The data to return for the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
+        guard let cars = PersistenceService.getCars() else {return nil}
+        car = cars[row]
+        return cars[row].name
     }
     
+    //Called if no cars are in database, to enter license plate manually
+    private func manualPayment(isEnabled: Bool) {
+        if (isEnabled) {
+            carPicker.isHidden = true
+            licensePlateTextField.isHidden = false
+        }
+        else {
+            carPicker.isHidden = false
+            licensePlateTextField.isHidden = true
+        }
+    }
+    func isManualPaymentEnabled() -> Bool {
+        return carPicker.isHidden
+    }
+}
+extension MapViewController: MFMessageComposeViewControllerDelegate {
+    func sendMessage(forLicensePlate licensePlate: String, forZone zone: String) {
+        if (MFMessageComposeViewController.canSendText()) {
+            let mvc = MFMessageComposeViewController()
+            mvc.body = licensePlate
+            mvc.recipients = [zone]
+            mvc.messageComposeDelegate = self
+            self.present(mvc, animated: true, completion: nil)
+        }
+        else {
+            print("messaging services not available")
+        }
+    }
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
